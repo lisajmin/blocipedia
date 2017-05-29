@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { create(:user) }
+  let(:user) { User.create(email: "user@email.com", password: "password") }
 
   describe "attributes" do
-    it "should have name and email attributes" do
-      expect(user).to have_attributes(name: user.name, email: user.email)
+    it "email and password attributes" do
+      expect(user).to have_attributes(email: user.email, password: user.password)
     end
   end
+
 end
