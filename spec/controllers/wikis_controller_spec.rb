@@ -4,6 +4,7 @@ RSpec.describe WikisController, type: :controller do
 
   let (:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
   let (:my_user) { create(:user) }
+  let (:other_user) { create(:user) }
 
   context "signed in user" do
     before do
@@ -107,6 +108,21 @@ RSpec.describe WikisController, type: :controller do
 
       put :update, id: my_wiki.id, wiki: {title: new_title, body: new_body}
       expect(response).to redirect_to my_wiki
+    end
+
+    it "edits wiki by another user" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+      other_post = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: other_user)
+
+      put :update, id: other_post.id, wiki: {title: new_title, body: new_body}
+      updated_wiki = assigns(:wiki)
+
+      expect(updated_wiki.id).to eq other_post.id
+      expect(updated_wiki.title).to eq new_title
+      expect(updated_wiki.body).to eq new_body
+      expect(updated_wiki.user).to eq other_user
+      expect(subject.current_user).to eq my_user
     end
   end
 
