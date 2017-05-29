@@ -9,11 +9,19 @@ require 'random_data'
 
 50.times do
   Wiki.create!(
-    title:  RandomData.random_sentence,
-    body:   RandomData.random_paragraph
+    title:  Faker::Hipster.sentence,
+    body:   Faker::Hipster.paragraph
   )
 end
 wikis = Wiki.all
 
+5.times do
+  User.create!(
+    email: Faker::Internet.email,
+    password: Faker::Internet.password
+  )
+end
+
 puts "Seed finished"
 puts "#{Wiki.count} wikis created"
+puts "#{User.count} users created"
