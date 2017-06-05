@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe WikisController, type: :controller do
 
   let (:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
+  let (:private_wiki) {Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: true) }
   let (:my_user) { create(:user) }
+  let (:premium_user) { User.create!(email: "lisa@email.com", password: "password", role: "premium") }
   let (:other_user) { create(:user) }
 
   context "signed in user" do
@@ -140,4 +142,21 @@ RSpec.describe WikisController, type: :controller do
   end
 
 end
+
+  context "signed in as premium user" do
+    before do
+      sign_in(premium_user)
+    end
+    describe "private wiki" do
+      it "creates a private wiki" do
+        post :create, wiki: {title: RandomData.random_sentence, body: RandomData.random_paragraph, private: true }
+        expect(assigns(:wiki)).to eq Wiki.last
+      end
+
+      it "show the private wiki" do
+        get :show, {id: private_wiki.id}
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
 end

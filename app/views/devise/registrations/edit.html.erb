@@ -42,7 +42,7 @@
   <% if current_user.role == 'standard' %>
       <%= link_to "Upgrade?", new_charge_path, class: 'btn btn-success' %>
   <% else %>
-      <%= link_to "Downgrade? :(", downgrade_path, class: 'btn btn-success' %>
+      <%= link_to "Downgrade? :(", downgrade_path, data: { confirm: "Are you sure? Your private wikis will become public." }, class: 'btn btn-success' %>
   <% end %>
 </div>
 

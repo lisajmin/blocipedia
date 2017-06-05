@@ -32,6 +32,7 @@ class ChargesController < ApplicationController
   end
 
   def downgrade
+    current_user.wikis.where(private: true).update_all(private: false)
     current_user.standard!
     redirect_to edit_user_registration_path
   end
