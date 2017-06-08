@@ -1,32 +1,50 @@
 <h1>Edit Wiki</h1>
 
 <div class='row'>
+
   <div class='col-md-4'>
-    <p>Guidelines for posts</p>
+    <p>Basic Markdown Guidelines</p>
     <ul>
-      <li></li>
+      <li><b>Headers</b>
+        <%= markdown("```# Heading 1```") %>
+        <%= markdown("```## Heading 2```") %>
+      </li>
+      <li><b>Emphasis</b>
+        <%= markdown("```*italic* and **bold**```") %>
+      </li>
+      <li><b>Blockquotes</b>
+        <%= markdown("```> quote```") %>
+      </li>
+      <li><b>Links</b>
+        <%= markdown("```[linked text](url)```") %>
+      </li>
+      <li><b>Images</b>
+        <%= markdown("```![Image Name](url)```") %>
+      </li>
     </ul>
   </div>
+
   <div class='col-md-8'>
     <%= form_for @wiki do |f| %>
-    <div class='form-group'>
-      <%= f.label :title %>
-      <%= f.text_field :title, class:'form-control', placeholder: "Enter the title" %>
-    </div>
-    <div class='form-group'>
-      <%= f.label :body %>
-      <%= f.text_area :body , class:'form-control', placeholder: "Enter the body" %>
-    </div>
-    <% if current_user.admin? || current_user.premium? %>
-      <div class="form-group">
-        <%= f.label :private, class: 'checkbox' do %>
-        <%= f.check_box :private %> Private wiki
-        <% end %>
+      <div class='form-group'>
+        <%= f.label :title %>
+        <%= f.text_field :title, class:'form-control', placeholder: "Enter the title" %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :body %>
+        <%= f.text_area :body , class:'form-control', placeholder: "Enter the body - Markdown supported" %>
+      </div>
+      <% if current_user.admin? || current_user.premium? %>
+        <div class="form-group">
+          <%= f.label :private, class: 'checkbox' do %>
+          <%= f.check_box :private, checked: @wiki.private? %> Private wiki
+          <% end %>
+        </div>
+      <% end %>
+      <div class='form-group'>
+        <%= f.submit "Save", class:'btn btn-success' %>
       </div>
     <% end %>
-    <div class='form-group'>
-      <%= f.submit "Save", class:'btn btn-success' %>
-    </div>
-    <% end %>
   </div>
+
 </div>

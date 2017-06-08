@@ -25,6 +25,7 @@ gem 'devise'
 gem 'pundit'
 gem 'faker'
 gem 'stripe'
+gem 'redcarpet'
 
 group :development, :test do
  gem 'byebug'
