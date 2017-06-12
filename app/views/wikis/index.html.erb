@@ -2,7 +2,6 @@
 
 <div>
   <% @wikis.each do |wiki| %>
-    <% if wiki.private != true || is_authorized %>
     <div class="media">
       <div class="media-body">
         <h4 class="media-heading">
@@ -10,7 +9,6 @@
         </h4>
       </div>
     </div>
-    <% end %>
   <% end %>
 
   <div class='col-md-4'>

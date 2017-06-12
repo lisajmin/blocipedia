@@ -47,4 +47,10 @@
     <% end %>
   </div>
 
+  <% if @wiki.private %>
+    <div class="form-group">
+      <%= render partial: 'collaborators/form', locals: { wiki: @wiki, user: current_user} %>
+    </div>
+  <% end %>
+
 </div>

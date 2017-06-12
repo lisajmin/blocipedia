@@ -1,0 +1,19 @@
+<div class= 'form-group'>
+  <h3>Collaborators</h3>
+    <% if @wiki.user == current_user %>
+      <%= form_tag(collaborators_path, action: :create, method: :post) do%>
+        <%= hidden_field_tag :wiki_id, @wiki.id %>
+        Enter email of the collaborator: <%= text_field_tag :email %>
+        <%= submit_tag 'Add collaborator' %>
+      <% end %>
+    <% end %>
+
+    <% @wiki.collaborators.each do |user| %>
+      <div>
+        <%= user.user.email %>
+        <% if @wiki.user == current_user %>
+          <%= link_to "Remove collaborator", user, method: :delete, data: {confirm: 'Are you sure you want remove user as a collaborator?'} %>
+        <% end %>
+    </div>
+    <% end %>
+</div>

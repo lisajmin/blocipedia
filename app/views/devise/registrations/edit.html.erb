@@ -38,7 +38,7 @@
 </div>
 
 <div class="media">
-  <h4>Currently you are enrolled in the <%= current_user.role.capitalize %> account</h4>
+  <h3>Currently you are enrolled in the <%= current_user.role.capitalize %> account</h3>
   <% if current_user.role == 'standard' %>
       <%= link_to "Upgrade?", new_charge_path, class: 'btn btn-success' %>
   <% else %>
