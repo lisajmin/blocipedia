@@ -1,13 +1,9 @@
-<div class="center-text">
-  <h1>Benefits for Premium Users!</h1>
-  <div>
-    <h3>For just $10.00...</h3>
-    <h3>You can create private Wikis.</h3>
-  </div>
-  <div>
-    <%= form_tag charges_path do %>
-      <h4>Let's get started!</h4>
-      <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" data-amount="<%= @stripe_btn_data[:amount] %>" data-description="<%= @stripe_btn_data[:description] %>" ></script>
-    <% end %>
-  </div>
-</div>
+.center-text
+  %h1 Benefits for Premium Users!
+  %div
+    %h3 For just $10.00...
+    %h3 You can create private Wikis.
+  %div
+    = form_tag charges_path do
+      %h4 Let's get started!
+      %script.stripe-button{"data-amount" => @stripe_btn_data[:amount], "data-description" => @stripe_btn_data[:description], "data-key" => @stripe_btn_data[:key], :src => "https://checkout.stripe.com/checkout.js"}
